@@ -77,7 +77,8 @@ func (l *ListLexer) NextToken() *Token {
 			if l.isLETTER() {
 				return l.NAME()
 			} else {
-				fmt.Errorf("invalid character: " + l.c)
+				fmt.Printf("invalid character: " + l.c + "\n")
+				os.Exit(0)
 			}
 		}
 	}
