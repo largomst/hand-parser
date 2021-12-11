@@ -33,10 +33,8 @@ class Lexer:
     def match(self, char):
         if self.current_char == char:
             self.consume()
-            return True
         else:
-            logging.error("Expected '%s' but found '%s'", char, self.current_char)
-            return False
+            raise Exception('expect {} but get {}'.format(char, self.current_char))
     
 class ListLexer(Lexer, AbstractLexer):
     def __init__(self, text):
@@ -60,9 +58,10 @@ class ListLexer(Lexer, AbstractLexer):
                 if self.isLetter():
                     return self.NAME()
                 else:
-                    logging.error("Invalid character '%s'", self.current_char)
+                    raise Exception("invalid character: "  + self.current_char + '\n')
                     os.exit(1)
         return Token(EOF_TYPE,EOF)
+    
 
     def isLetter(self):
         return self.current_char.isalpha()
@@ -81,6 +80,9 @@ class ListLexer(Lexer, AbstractLexer):
     def WS(self):
         while self.current_char in [' ' ,'\n' ,'\t' , '\r']:
             self.consume()       
+    
+    def get_token_name(self, token_type):
+        return TokensNames[token_type]
 
 
 class Token:
