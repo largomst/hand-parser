@@ -38,6 +38,7 @@ class Lexer:
     
     def get_next_token(self):
         pass
+
 class ListLexer(Lexer):
     def __init__(self, text):
         super().__init__(text)
